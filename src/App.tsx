@@ -1,20 +1,60 @@
-import { Hero } from './components/Hero';
-import { Experience } from './components/Experience';
-import { SKILLS } from './constants/profile';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Home');
   const tabs = ['Home', 'Projects', 'Experience', 'Contact'];
 
+  // 1. 建立各個段落的 Ref
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = {
+    Home: useRef<HTMLElement>(null),
+    Projects: useRef<HTMLElement>(null),
+    Experience: useRef<HTMLElement>(null),
+    Contact: useRef<HTMLElement>(null),
+  };
+
+  // 2. 點擊標籤捲動到對應位置
+  const scrollToSection = (tab: string) => {
+    const target = sectionRefs[tab as keyof typeof sectionRefs].current;
+    if (target && scrollContainerRef.current) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // 3. 自動偵測捲動位置並更新標籤 (Scroll Spy)
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const observerOptions = {
+      root: container,
+      rootMargin: '-20% 0px -70% 0px', // 偵測區塊是否在螢幕偏上方的位置
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          if (id) setActiveTab(id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // 開始觀察每個 Section
+    Object.values(sectionRefs).forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    // 1. 最外層：使用 flex 讓紙張在螢幕上下左右居中，並設定不可捲動 (h-screen)
     <div className="h-screen w-screen bg-stone-200 flex items-center justify-center p-4 overflow-hidden">
-      
-      {/* 2. 紙張容器：設定固定高度 (85% 的螢幕高度)，並使用 flex-col 垂直排列 */}
       <div className="w-full max-w-[1440px] h-[95vh] bg-stone-100 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
-        
-        {/* 3. Bar (Navbar)：固定在最上方，不隨內容滾動 */}
+        {/* bar */}
         <nav className="relative bg-stone-50/80 backdrop-blur-md flex-none z-50">
           <div className="flex justify-center items-center py-5">
             <ul className="flex space-x-12 text-[13px] text-stone-500 font-bold tracking-[0.15em] uppercase">
