@@ -19,8 +19,21 @@ function App() {
   // 2. 點擊標籤捲動到對應位置
   const scrollToSection = (tab: string) => {
     const target = sectionRefs[tab as keyof typeof sectionRefs].current;
-    if (target && scrollContainerRef.current) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const container = scrollContainerRef.current;
+
+    if (target && container) {
+      // 取得目標元素相對於容器的垂直距離
+      const paddingOffset = 100; 
+      const targetOffset = target.offsetTop - paddingOffset;
+
+      // 手動執行容器捲動
+      container.scrollTo({
+        top: targetOffset,
+        behavior: 'smooth',
+      });
+      
+      // 點擊時也手動設定一次 ActiveTab，確保反應即時
+      setActiveTab(tab); 
     }
   };
 
@@ -46,7 +59,6 @@ function App() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // 開始觀察每個 Section
     Object.values(sectionRefs).forEach((ref) => {
       if (ref.current) observer.observe(ref.current);
     });
@@ -64,13 +76,14 @@ function App() {
               {tabs.map((tab) => (
                 <li key={tab} className="relative">
                   <button
-                    onClick={() => setActiveTab(tab)}
+                    onClick={() => scrollToSection(tab)}
                     className={`transition-colors cursor-pointer ${
                       activeTab === tab ? 'text-blue-600' : 'text-stone-400 hover:text-stone-900'
                     }`}
                   >
                     {tab}
                   </button>
+
                   {activeTab === tab && (
                     <div className="absolute left-0 right-0 bottom-[-21px] h-[4px] bg-blue-600 z-10"></div>
                   )}
@@ -86,57 +99,91 @@ function App() {
         {/* 主要捲動區塊 */}
         <main 
           ref={scrollContainerRef} 
-          className="flex-1 overflow-y-auto p-12 md:p-24 scroll-smooth"
+          className="flex-1 overflow-y-auto p-12 md:p-24 scroll-smooth relative" // 加入 relative
         >
           <div className="max-w-5xl mx-auto space-y-32">
             
             {/* Section: Home */}
-            <section id="Home" ref={sectionRefs.Home} className="min-h-screen flex flex-col items-center pt-20 pb-32">
-              <div className="flex flex-col md:flex-row gap-16 items-start justify-center">
-                {/* 左側：頭像卡片區 */}
-                <div className="flex-none relative">
-                  <div className="p-8 flex flex-col items-center">
-                    {/* 圓形頭像 */}
-                    <div className="w-56 h-56 rounded-full border-[10px] border-stone-800 flex items-center justify-center overflow-hidden bg-white shadow-inner mb-8">
+            <section 
+              id="Home" 
+              ref={sectionRefs.Home} 
+              className="h-full flex items-center justify-center relative pt-12 pb-12"
+            >
+              <div className="flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-24 w-full max-w-6xl px-10">
+                
+                {/* 左側：大頭貼卡片區 */}
+                <div className="flex flex-col items-center flex-none -mt-10">
+                  <div className="relative group">
+                    <div className="w-64 h-64 rounded-full border-[12px] border-stone-800 flex items-center justify-center overflow-hidden bg-white shadow-2xl transition-transform duration-500 group-hover:scale-105">
                       <span className="text-stone-300 font-bold tracking-widest text-xl">PHOTO</span>
                     </div>
-                    
-                    {/* 姓名 */}
-                    <h2 className="text-stone-800 text-2xl font-bold mb-2">何穎宣 (Ho Ying-Xuan)</h2>
+                  </div>
+                  
+                  <div className="mt-8 text-center">
+                    <h1 className="text-3xl font-black text-stone-800 tracking-tight">
+                      何穎宣 <span className="text-stone-400 font-light text-2xl ml-2">(Ho Ying-Xuan)</span>
+                    </h1>
                   </div>
                 </div>
 
-                {/* 右側：文字介紹區 */}
-                <div className="flex-1 space-y-8 pt-6">
-                  <header>
-                    <h2 className="text-stone-800 text-2xl font-bold mb-2">About Me</h2>
-                    <p className="text-stone-500 text-xl font-bold mt-4">
+                {/* 右側：文字介紹與標籤區 */}
+                <div className="flex-1 space-y-4">
+                  <div className="space-y-6">
+                    <h2 className="text-stone-800 text-5xl font-black tracking-tighter">About Me</h2>
+                    <p className="text-blue-600 text-2xl font-extrabold tracking-tight">
                       Software Engineer Intern Candidate
                     </p>
-                  </header>
-
-                  <div className="max-w-2xl">
-                    <p className="text-stone-500 leading-relaxed font-medium">
-                      TODO
-                    </p>
+                    
+                    <div className="max-w-2xl text-stone-500 leading-relaxed font-medium text-lg">
+                      大學畢業於 <span className="text-stone-900 font-bold">國立台北科技大學 電資學士班 資訊工程組</span>。<br />
+                      目前就讀於 <span className="text-stone-900 font-bold">國立清華大學資訊安全研究所</span>。 <br />
+                      致力於 AI 應用與軟體開發。
+                    </div>
                   </div>
 
-                  {/* 社群圖示 */}
-                  <div className="flex space-x-6 text-2xl text-stone-700">
-                    <a href="mailto:shuan114164510@gapp.nthu.edu.tw" className="hover:text-blue-600 transition-colors">
-                      <FontAwesomeIcon icon={faEnvelope} />
-                    </a>
-                    <a href="tel:0905068174" className="hover:text-blue-600 transition-colors">
-                      <FontAwesomeIcon icon={faPhone} />
-                    </a>
-                    <a href="https://github.com/Shuan0402" target="_blank" className="hover:text-blue-600 transition-colors">
-                      <FontAwesomeIcon icon={faGithub} />
-                    </a>
-                    <a href="https://linkedin.com/in/穎宣-何-4a2844356/" target="_blank" className="hover:text-blue-600 transition-colors">
-                      <FontAwesomeIcon icon={faLinkedin} />
-                    </a>
+                  {/* 聯絡圖標 */}
+                  <div className="flex space-x-4 text-2xl text-stone-700">
+                    <div className="relative group/mail">
+                      <a href="mailto:shuan114164510@gapp.nthu.edu.tw" className="hover:text-blue-600 transition-colors">
+                        <FontAwesomeIcon icon={faEnvelope} />
+                      </a>
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 group-hover/mail:opacity-100 transition-opacity pointer-events-none whitespace-nowrap bg-stone-800 text-white text-[11px] py-1 px-3 rounded shadow-lg">
+                        shuan114164510@gapp.nthu.edu.tw
+                      </div>
+                    </div>
+
+                    <div className="relative group/phone">
+                      <a href="tel:+886905068174" className="hover:text-blue-600 transition-colors">
+                        <FontAwesomeIcon icon={faPhone} />
+                      </a>
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 group-hover/phone:opacity-100 transition-opacity pointer-events-none whitespace-nowrap bg-stone-800 text-white text-[11px] py-1 px-3 rounded shadow-lg">
+                        0905068174
+                      </div>
+                    </div>
+
+                    <a href="https://github.com/Shuan0402" className="hover:text-blue-600 transition-colors"><FontAwesomeIcon icon={faGithub} /></a>
+                    <a href="#https://www.linkedin.com/in/穎宣-何-4a2844356/" className="hover:text-blue-600 transition-colors"><FontAwesomeIcon icon={faLinkedin} /></a>
+                  </div>
+
+                  {/* Skills 標籤 */}
+                  <div className="w-full pt-4">
+                    <div className="flex flex-wrap gap-3">
+                      {[
+                        'Python', 'C++', 'JavaScript', 'React/Vue', 
+                        'Node.js/Flask', '自動化測試 (CI/CD)', 
+                        'AI/LLM 應用', '軟體品質管理', 'Git 版本控制'
+                      ].map((skill, index) => (
+                        <span 
+                          key={index} 
+                          className="px-6 py-2.5 bg-white border border-stone-200 text-stone-600 text-[13px] font-bold rounded-full shadow-sm hover:border-blue-300 hover:text-blue-600 transition-all"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
+                
               </div>
             </section>
 
