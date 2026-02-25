@@ -27,7 +27,7 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
     {
       category: "競賽證照",
       items: [
-        { title: "AIS3 Hackathon 入圍決賽", period: "2026", desc: "FB  Scam Hunter 臉書詐騙廣告即時標記工具。" },
+        { title: "AIS3 Hackathon 入圍決賽", period: "2026", desc: "FB Scam Hunter 臉書詐騙廣告即時標記工具。" },
         { title: "picoCTF 2025", period: "2025", desc: "global rank: 9.24%。" },
         { title: "Hackfinity Battle 2025", period: "2025", desc: "global rank: 10.96%。" },
         { title: "資安女婕思 資安闖天關 優勝", period: "2025", desc: "全國資安攻防競賽獲獎。" },
@@ -48,23 +48,32 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
   ];
 
   return (
-    <section id="Experience" ref={ref} className="h-full py-16">
-      <div className="mb-12">
-        <h2 className="text-stone-400 text-xs tracking-[0.5em] uppercase font-black">Experience</h2>
+    <section 
+      id="Experience" 
+      ref={ref} 
+      className="w-full py-10 px-10 flex flex-col items-center" 
+    >
+      {/* 標題區 */}
+      <div className="w-full max-w-7xl mb-12 flex-none">
+        <h2 className="text-stone-400 text-xs tracking-[0.5em] uppercase font-black">
+          Experience
+        </h2>
       </div>
 
-      <div className="bg-stone-50/80 border border-stone-200 rounded-[32px] p-8 md:p-12 shadow-sm">
+      {/* 內容大框框 */}
+      <div className="w-full max-w-7xl bg-stone-50/80 border border-stone-200 rounded-[32px] p-8 md:p-12 shadow-sm">
         <div className="flex flex-col md:flex-row gap-0">
           
-          <div className="md:w-56 flex-none relative">
-            <div className="sticky top-8 space-y-4 pr-8 border-r-2 border-stone-200"> 
+          {/* 左側：固定導航 */}
+          <div className="md:w-56 flex-none relative border-r border-stone-200 pr-8">
+            <div className="sticky top-10 space-y-4">
               {experienceData.map((group) => (
                 <button
                   key={group.category}
                   onClick={() => setActiveCategory(group.category)}
-                  className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 font-bold text-sm ${
+                  className={`block w-full text-left px-5 py-3 rounded-xl transition-all duration-300 font-bold text-sm ${
                     activeCategory === group.category 
-                    ? 'bg-stone-800 text-white shadow-md' // 選中的類別有獨立框框
+                    ? 'bg-stone-800 text-white shadow-md' 
                     : 'text-stone-400 hover:text-stone-600'
                   }`}
                 >
@@ -74,33 +83,40 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
             </div>
           </div>
 
-          <div className="flex-1 md:pl-12 mt-8 md:mt-0">
+          {/* 右側：項目列表 */}
+          <div className="flex-1 md:pl-12 mt-8 md:mt-0 flex flex-col">
             {experienceData.map((group) => (
-              <div 
-                key={group.category}
-                className={`${activeCategory === group.category ? 'block animate-fadeIn' : 'hidden'}`}
-              >
-                <div className="grid gap-6">
-                  {group.items.map((item, idx) => (
-                    <div 
-                      key={idx} 
-                      className="group bg-white/60 border border-stone-100 px-6 py-5 rounded-2xl hover:shadow-sm transition-all"
-                    >
-                      <div className="flex justify-between items-baseline mb-3">
-                        <h4 className="text-stone-800 font-black text-base group-hover:text-blue-600 transition-colors">
-                          {item.title}
-                        </h4>
-                        <span className="text-stone-400 font-mono text-[10px] uppercase shrink-0 ml-4">
-                          {item.period}
-                        </span>
+              activeCategory === group.category && (
+                <div 
+                  key={group.category}
+                  className="animate-fadeIn max-h-[550px] overflow-y-auto pr-4 custom-scrollbar"
+                  style={{
+                    maskImage: 'linear-gradient(to bottom, transparent, black 30px, black calc(100% - 30px), transparent)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30px, black calc(100% - 30px), transparent)'
+                  }}
+                >
+                  <div className="grid gap-6 py-8">
+                    {group.items.map((item, idx) => (
+                      <div 
+                        key={idx} 
+                        className="group bg-white/60 border border-stone-100 px-8 py-6 rounded-2xl hover:shadow-sm transition-all"
+                      >
+                        <div className="flex justify-between items-baseline mb-4">
+                          <h4 className="text-stone-800 font-black text-lg group-hover:text-blue-600 transition-colors">
+                            {item.title}
+                          </h4>
+                          <span className="text-stone-400 font-mono text-[11px] uppercase shrink-0 ml-4">
+                            {item.period}
+                          </span>
+                        </div>
+                        <p className="text-stone-500 text-sm leading-relaxed font-medium">
+                          {item.desc}
+                        </p>
                       </div>
-                      <p className="text-stone-500 text-sm leading-relaxed font-medium">
-                        {item.desc}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )
             ))}
           </div>
           

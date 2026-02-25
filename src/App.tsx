@@ -5,7 +5,7 @@ import Experience from './components/Experience';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Home');
-  const tabs = ['Home', 'Projects', 'Experience', 'Contact'];
+  const tabs = ['Home', 'Experience', 'Projects', 'Contact'];
 
   // 1. 建立各個段落的 Ref
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -18,35 +18,35 @@ function App() {
 
   // 2. 點擊標籤捲動到對應位置
   const scrollToSection = (tab: string) => {
-    const target = sectionRefs[tab as keyof typeof sectionRefs].current;
-    const container = scrollContainerRef.current;
+  const target = sectionRefs[tab as keyof typeof sectionRefs].current;
+  const container = scrollContainerRef.current;
 
-    if (target && container) {
-      // 取得目標元素相對於容器的垂直距離
-      const paddingOffset = 100; 
-      const targetOffset = target.offsetTop - paddingOffset;
+  if (target && container) {
+    // 獲取 target 相對於 container 的精確位置
+    const containerTop = container.getBoundingClientRect().top;
+    const targetTop = target.getBoundingClientRect().top;
+    
+    // 計算目標在容器內的相對捲動距離
+    const scrollTarget = targetTop - containerTop + container.scrollTop;
 
-      // 手動執行容器捲動
-      container.scrollTo({
-        top: targetOffset,
-        behavior: 'smooth',
-      });
-      
-      // 點擊時也手動設定一次 ActiveTab，確保反應即時
-      setActiveTab(tab); 
-    }
-  };
-
+    container.scrollTo({ 
+      top: scrollTarget, 
+      behavior: 'smooth' 
+    });
+    
+    setActiveTab(tab);
+  }
+};
   // 3. 自動偵測捲動位置並更新標籤 (Scroll Spy)
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
+  const container = scrollContainerRef.current;
+  if (!container) return;
 
-    const observerOptions = {
-      root: container,
-      rootMargin: '-20% 0px -100% 0px', // 偵測區塊是否在螢幕偏上方的位置
-      threshold: 0,
-    };
+  const observerOptions = {
+    root: container,
+    rootMargin: '-150px 0px -70% 0px', 
+    threshold: 0,
+  };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
@@ -99,15 +99,16 @@ function App() {
         {/* 主要捲動區塊 */}
         <main 
           ref={scrollContainerRef} 
-          className="flex-1 overflow-y-auto relative scroll-smooth h-full"
+          className="flex-1 overflow-y-auto overflow-x-hidden relative scroll-smooth h-full min-h-0"
         >
           {/* <div className="max-w-5xl mx-auto space-y-32"> */}
             
             {/* Section: Home */}
             <Home ref={sectionRefs.Home} />
-
-            {/* Section: Experience */}
-            <Experience ref={sectionRefs.Experience} />
+              <div className="flex flex-col">
+                {/* Section: Experience */}
+                <Experience ref={sectionRefs.Experience} />
+              </div>
 
         </main>
       </div>
