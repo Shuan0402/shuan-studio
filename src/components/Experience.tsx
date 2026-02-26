@@ -61,7 +61,7 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
       </div>
 
       {/* 內容大框框 */}
-      <div className="w-full max-w-7xl bg-stone-50/80 border border-stone-200 rounded-[32px] p-8 md:p-12 shadow-sm">
+      <div className="w-full max-w-7xl bg-white/70 backdrop-blur-sm border border-stone-200 rounded-[32px] p-8 md:p-12 shadow-sm">
         <div className="flex flex-col md:flex-row gap-0">
           
           {/* 左側：固定導航 */}

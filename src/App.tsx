@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import Home from './components/Home';
 import Experience from './components/Experience';
+import Projects from './components/Projects';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Home');
@@ -38,6 +39,7 @@ function App() {
   }
 };
   // 3. 自動偵測捲動位置並更新標籤 (Scroll Spy)
+  
   useEffect(() => {
   const container = scrollContainerRef.current;
   if (!container) return;
@@ -101,14 +103,10 @@ function App() {
           ref={scrollContainerRef} 
           className="flex-1 overflow-y-auto overflow-x-hidden relative scroll-smooth h-full min-h-0"
         >
-          {/* <div className="max-w-5xl mx-auto space-y-32"> */}
             
-            {/* Section: Home */}
             <Home ref={sectionRefs.Home} />
-              <div className="flex flex-col">
-                {/* Section: Experience */}
-                <Experience ref={sectionRefs.Experience} />
-              </div>
+            <Experience ref={sectionRefs.Experience} />
+            <Projects ref={sectionRefs.Projects} />
 
         </main>
       </div>
