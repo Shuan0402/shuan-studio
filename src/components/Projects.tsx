@@ -6,6 +6,7 @@ interface ProjectItem {
   type: string;
   image: string;
   title: string;
+  subtitle: string;
   description: string;
   technologies: string[];
   tags: string[];
@@ -15,9 +16,38 @@ interface ProjectItem {
 
 const projectsData: ProjectItem[] = [
   {
+    type: 'image',
+    image: '/images/RANsomCheck.png', // 專案演示影片路徑
+    title: 'RANsomCheck',
+    subtitle: '基於深度學習的勒索病毒偵測平台',
+    description: '開發基於 Transformer 的勒索病毒偵測模型 。透過動態分析 API 序列擷取行為特徵，準確率達 0.9994。並整合 React 與 Flask 打造即時網頁安全性分析平台 。',
+    technologies: [
+      'PyTorch',
+      'Transformer',
+      'React',
+      'Flask',
+      'TypeScript',
+    ],
+    tags: ['IEA/AIE 2025', '國科會大專生計畫', '專題競賽佳作', '勒索病毒偵測', '深度學習', '自然語言處理', '網路安全'],
+    liveLink: 'https://link.springer.com/chapter/10.1007/978-981-96-8892-0_10',
+    githubLink: 'https://github.com/Shuan0402/RANsomCheck'
+  },
+  {
+    type: 'video',
+    image: '/videos/fb_scam_hunter.mp4', 
+    title: 'FB Scam Hunter',
+    subtitle: '臉書詐騙廣告即時標記工具',
+    description: 'FB Scam Hunter 是一款用於辨識臉書詐騙廣告的瀏覽器擴充元件。它能自動擷取 Facebook 廣告內容 ，透過後端 XGBoost 模型進行語意分析與風險判定，並在網頁上即時以紅框標註疑似詐騙的貼文。',
+    technologies: ['FastAPI', 'XGBoost Classifier', 'Python', 'NLP', 'Chrome Extension V3','Feature Engineering'],
+    tags: ['資訊安全', 'AIS3 Hackathon', '機器學習', '防詐工具'],
+    liveLink: 'https://www.youtube.com/watch?v=PMrFTh-90as',
+    githubLink: 'https://github.com/Shuan0402/FB_ScamHunter_backend'
+  },
+  {
     type: 'video',
     image: '/videos/SelfMap.mp4',
-    title: 'SelfMap：打造你專屬的旅行地圖',
+    title: 'SelfMap',
+    subtitle: '打造你專屬的旅行地圖',
     description: 'SelfMap 是一個個人化的地理資訊標記平台，旨在讓使用者記錄私房景點、撰寫遊記，並能與旅伴共同協作專屬的地圖。透過直觀的介面，將每一次旅行的足跡與想法轉化為珍貴的回憶地圖。',
     technologies: ['React', 'Firebase', 'MUI', 'Vite', 'ChatGPT 5.1'],
     tags: ['前端開發', '旅遊科技', '地圖協作'],
@@ -25,34 +55,35 @@ const projectsData: ProjectItem[] = [
     githubLink: 'https://github.com/shuan0402/selfMap'
   },
   {
-    type: 'image',
-    image: '/images/typing-arena-cover.jpg',
-    title: 'Typing Arena: 即時打字對戰',
-    description: '使用 Socket.IO 實現的即時多人打字對戰遊戲，支援房間創建、排行榜、和不同難度模式。提供流暢的用戶體驗。',
-    technologies: ['Socket.IO', 'React', 'Express', 'MongoDB'],
-    tags: ['全端開發', '即時通訊', '遊戲'],
-    liveLink: '#',
-    githubLink: '#',
+    type: 'video',
+    image: '/videos/click-clack.mp4',
+    title: 'ClickClack',
+    subtitle: 'AI 智慧打字練習平台',
+    description: 'ClickClack 是一個結合生成式 AI 與文件分析技術的打字訓練網頁。使用者能透過 AI 創意寫手生成專屬文章，或上傳 PDF/PPTX 進行重點提取與擴充練習。',
+    technologies: ['React 18', 'Zustand', 'Tailwind CSS', 'Node.js/Python API', 'Vite', 'LLM'],
+    tags: ['前端開發', 'AI 應用', '效能工具', 'EdTech'],
+    liveLink: 'https://shuan0402.github.io/click-clack/', // 根據參考資料部署資訊推測
+    githubLink: 'https://github.com/shuan0402/click-clack/'
+  },
+  {
+    type: 'video',
+    image: '/videos/onchained.mp4',
+    title: 'OnChainED',
+    subtitle: '區塊鏈學習認證平台',
+    description: '專為教育機構設計的去中心化證書系統，結合 W3C VC 標準與 IPFS 永久存證技術。學生能自主管理具國際認可的數位證明，並支援雇主透過 QR Code 進行無須中心化伺服器的即時驗證。',
+    technologies: ['React', 'MetaMask', 'DID/VC', 'SpruceID', 'IPFS/Arweave', 'Ethereum/Polygon'],
+    tags: ['Web3', '區塊鏈', '去中心化身份', '教育科技'],
+    githubLink: 'https://github.com/Shuan0402/OnChainED'
   },
   {
     type: 'image',
-    image: '/images/security-framework.jpg',
-    title: '自動化滲透測試框架',
-    description: '結合多種開源工具與自研腳本，實現自動化掃描常見漏洞並生成報告的框架。用於內部安全評估與教學。',
-    technologies: ['Python', 'Docker', 'Kali Linux Tools', 'Flask'],
-    tags: ['資安', '自動化', '滲透測試'],
-    liveLink: '#',
-    githubLink: '#',
-  },
-  {
-    type: 'image',
-    image: '/images/fraud-detection.jpg',
-    title: 'AI 詐騙偵測 LINE Bot',
-    description: '基於自然語言處理技術，分析 LINE 訊息中的關鍵字與模式，即時預警潛在的詐騙資訊。準確率達 90%。',
-    technologies: ['Python', 'FastAPI', 'NLP', 'TensorFlow'],
-    tags: ['AI', '機器學習', '自然語言處理', 'LINE Bot'],
-    liveLink: '#',
-    githubLink: '#',
+    image: '/images/article_reader.png',
+    title: 'ArticleReader',
+    subtitle: '智慧朗讀助手 (Work in Progress)',
+    description: '結合 Flutter 跨平台開發與 Python Selenium 自動化技術。系統能精準解析網頁文章段落、自動導航至下一章節，並透過後端 API 提供精確到段落的書籤恢復功能。',
+    technologies: ['Flutter', 'Python', 'Selenium', 'FastAPI', 'TTS'],
+    tags: ['跨平台應用', '自動化技術', '混合架構', '軟體工程'],
+    githubLink: 'https://github.com/Shuan0402/ArticleReader'
   },
 ];
 
@@ -187,6 +218,9 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
                   <h3 className="text-stone-800 text-4xl font-black tracking-tight leading-tight">
                     {project.title}
                   </h3>
+                  <h4 className="text-stone-800 text-2xl font-black tracking-tight leading-tight">
+                    {project.subtitle}
+                  </h4>
                   <p className="text-stone-500 text-lg leading-relaxed font-medium">
                     {project.description}
                   </p>
