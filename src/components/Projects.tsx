@@ -17,7 +17,7 @@ interface ProjectItem {
 const projectsData: ProjectItem[] = [
   {
     type: 'image',
-    image: ['/images/RANsomCheck_1.png', '/images/RANsomCheck_2.png', '/images/RANsomCheck_3.png'],
+    image: ['images/RANsomCheck_1.png', 'images/RANsomCheck_2.png', 'images/RANsomCheck_3.png'],
     title: 'RANsomCheck',
     subtitle: '基於深度學習的勒索病毒偵測平台',
     description: '開發基於 Transformer 的勒索病毒偵測模型 。透過動態分析 API 序列擷取行為特徵，準確率達 0.9994。並整合 React 與 Flask 打造即時網頁安全性分析平台 。',
@@ -35,12 +35,12 @@ const projectsData: ProjectItem[] = [
   {
     type: 'image',
     image: [
-      '/images/reddit_1.png',
-      '/images/reddit_2.png',
-      '/images/reddit_3.png',
-      '/images/reddit_4.png',
-      '/images/reddit_5.png',
-      '/images/reddit_6.png'
+      'images/reddit_1.png',
+      'images/reddit_2.png',
+      'images/reddit_3.png',
+      'images/reddit_4.png',
+      'images/reddit_5.png',
+      'images/reddit_6.png'
     ],
     title: 'Reddit Sentiment Analysis',
     subtitle: '基於 BERT 與 Bi-LSTM 的社群情感分析',
@@ -52,7 +52,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'video',
-    image: ['/videos/fb_scam_hunter.mp4'], 
+    image: ['videos/fb_scam_hunter.mp4'], 
     title: 'FB Scam Hunter',
     subtitle: '臉書詐騙廣告即時標記工具',
     description: 'FB Scam Hunter 是一款用於辨識臉書詐騙廣告的瀏覽器擴充元件。它能自動擷取 Facebook 廣告內容 ，透過後端 XGBoost 模型進行語意分析與風險判定，並在網頁上即時以紅框標註疑似詐騙的貼文。',
@@ -63,7 +63,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'video',
-    image: ['/videos/SelfMap.mp4'],
+    image: ['videos/SelfMap.mp4'],
     title: 'SelfMap',
     subtitle: '打造你專屬的旅行地圖',
     description: 'SelfMap 是一個個人化的地理資訊標記平台，旨在讓使用者記錄私房景點、撰寫遊記，並能與旅伴共同協作專屬的地圖。透過直觀的介面，將每一次旅行的足跡與想法轉化為珍貴的回憶地圖。',
@@ -74,7 +74,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'image',
-    image: ['/images/elecookie_1.png', '/images/elecookie_2.png', '/images/elecookie_3.png', '/images/elecookie_4.png', '/images/elecookie_5.png', '/images/elecookie_6.png'],
+    image: ['images/elecookie_1.png', 'images/elecookie_2.png', 'images/elecookie_3.png', 'images/elecookie_4.png', 'images/elecookie_5.png', 'images/elecookie_6.png'],
     title: 'Elecookie',
     subtitle: '多角色餅乾電商平台',
     description: '基於 React 與 ASP.NET Core 開發的餅乾購物網站。支援會員、員工及管理員等多重身份權限，具備完整的購物車、訂單追蹤、店家商品管理及追蹤功能。',
@@ -84,7 +84,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'video',
-    image: ['/videos/boxbob.mp4'],
+    image: ['videos/boxbob.mp4'],
     title: 'BoxBob',
     subtitle: '2D 益智推箱子遊戲',
     description: '於物件導向程式設計課程開發的 2D 益智遊戲。利用課程提供之 C++/MFC 遊戲引擎框架，實作 16 個地圖關卡讀取、角色移動與碰撞偵測演算法、遊戲狀態機切換以及音效觸發邏輯。',
@@ -95,7 +95,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'video',
-    image: ['/videos/onchained.mp4'],
+    image: ['videos/onchained.mp4'],
     title: 'OnChainED',
     subtitle: '區塊鏈學習認證平台',
     description: '專為教育機構設計的去中心化證書系統，結合 W3C VC 標準與 IPFS 永久存證技術。學生能自主管理具國際認可的數位證明，並支援雇主透過 QR Code 進行無須中心化伺服器的即時驗證。',
@@ -105,7 +105,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'video',
-    image: ['/videos/click-clack.mp4'],
+    image: ['videos/click-clack.mp4'],
     title: 'ClickClack',
     subtitle: 'AI 智慧打字練習平台',
     description: 'ClickClack 是一個結合生成式 AI 與文件分析技術的打字訓練網頁。使用者能透過 AI 創意寫手生成專屬文章，或上傳 PDF/PPTX 進行重點提取與擴充練習。',
@@ -116,7 +116,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'image',
-    image: ['/images/article_reader.png'],
+    image: ['images/article_reader.png'],
     title: 'ArticleReader',
     subtitle: '智慧朗讀助手 (WIP)',
     description: '結合 Flutter 跨平台開發與 Python Selenium 自動化技術。系統能精準解析網頁文章段落、自動導航至下一章節，並透過後端 API 提供精確到段落的書籤恢復功能。',
@@ -126,7 +126,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'image',
-    image: ["/images/note_generator_1.png", "/images/note_generator_2.png"],
+    image: ["images/note_generator_1.png", "images/note_generator_2.png"],
     title: 'note_generator',
     subtitle: '個人化筆跡合成文本平台 (WIP)',
     description: '這是一款結合圖像處理與文本分析的桌面應用程式。使用者可以上傳自己的真實手寫字跡，系統會自動分析 .txt 文本並將其轉化為具有自然隨機感的手寫筆記圖片。支援多樣本字跡採集、隨機位移模擬。',
@@ -136,7 +136,7 @@ const projectsData: ProjectItem[] = [
   },
   {
     type: 'image',
-    image: ['/images/random_food_1.png', '/images/random_food_2.png', '/images/random_food_3.png'],
+    image: ['images/random_food_1.png', 'images/random_food_2.png', 'images/random_food_3.png'],
     title: 'Ntut_RandomFood',
     subtitle: '北科大校園美食隨機抽選系統 (WIP)',
     description: '專為北科大學生設計的午餐決策工具。整合校園周邊餐廳清單，具備流暢的側邊選單動畫與隨機結果產生邏輯，並採用深綠色系專業設計。',
@@ -229,37 +229,46 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
   }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    // 1. 處理計時器邏輯
     useEffect(() => {
-      if (!isActive || images.length <= 1) return;
+      if (!isActive || images.length <= 1) {
+        setCurrentIndex(0);
+        return;
+      }
 
       const timer = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
-          if (prevIndex === images.length - 1) {
-            onComplete();
-            return 0;
-          }
-          return prevIndex + 1;
+        setCurrentIndex((prev) => {
+          const next = prev + 1;
+          // 如果超過最後一張，回傳一個特殊值 -1 讓下一個 useEffect 接手
+          return next >= images.length ? -1 : next;
         });
-      }, 2000); 
+      }, 2000);
+
       return () => clearInterval(timer);
-    }, [images.length, isActive, onComplete]);
+    }, [images.length, isActive]);
+
+    // 2. 專門監控何時「播完」並通知父組件
+    useEffect(() => {
+      if (currentIndex === -1) {
+        setCurrentIndex(0); // 重置為第一張
+        onComplete();       // ✅ 在這裡呼叫是安全的，不會觸發 React 報錯
+      }
+    }, [currentIndex, onComplete]);
 
     return (
-      <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-xl">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`${title} - ${index}`}
-            className={`absolute transition-opacity duration-1000 ease-in-out max-w-full max-h-full object-contain ${
-              index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          />
-        ))}
+      <div className="relative w-full h-full">
+        <img 
+          // 這裡加上了 import.meta.env.BASE_URL 解決 GitHub Pages 的 404 問題
+          src={images[currentIndex]?.startsWith('http') 
+              ? images[currentIndex] 
+              : `${import.meta.env.BASE_URL}${images[currentIndex]?.replace(/^\//, '')}`}
+          alt={`${title} - ${currentIndex}`}
+          className="w-full h-full object-cover transition-opacity duration-500"
+        />
       </div>
     );
   };
-
+  
   return (
     <section 
       id="Projects" 
