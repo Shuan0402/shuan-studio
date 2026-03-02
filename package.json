@@ -2,6 +2,7 @@
   "name": "shuan-studio",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://shuan0402.github.io/shuan-studio/",
   "type": "module",
   "scripts": {
     "dev": "vite",

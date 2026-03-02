@@ -88,8 +88,8 @@ const projectsData: ProjectItem[] = [
     title: 'BoxBob',
     subtitle: '2D 益智推箱子遊戲',
     description: '於物件導向程式設計課程開發的 2D 益智遊戲。利用課程提供之 C++/MFC 遊戲引擎框架，實作 16 個地圖關卡讀取、角色移動與碰撞偵測演算法、遊戲狀態機切換以及音效觸發邏輯。',
-    technologies: ['C++', 'MFC', 'Win32 API', 'GDI+', '多人協作'],
-    tags: ['遊戲開發', '物件導向', '益智遊戲', '學術專案'],
+    technologies: ['C++', 'MFC', 'Win32 API', 'GDI+'],
+    tags: ['遊戲開發', '物件導向', '益智遊戲', '多人協作'],
     liveLink: 'https://youtu.be/WznII5vH8jw',
     githubLink: 'https://github.com/Kiri487/2022-Spring-OOPL'
   },
@@ -229,7 +229,7 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
   }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // 1. 處理計時器邏輯
+    // 邏輯 1：只負責計時切換索引
     useEffect(() => {
       if (!isActive || images.length <= 1) {
         setCurrentIndex(0);
@@ -237,38 +237,44 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
       }
 
       const timer = setInterval(() => {
-        setCurrentIndex((prev) => {
-          const next = prev + 1;
-          // 如果超過最後一張，回傳一個特殊值 -1 讓下一個 useEffect 接手
-          return next >= images.length ? -1 : next;
+        setCurrentIndex((prevIndex) => {
+          return prevIndex === images.length - 1 ? -1 : prevIndex + 1;
         });
-      }, 2000);
+      }, 2000); 
 
       return () => clearInterval(timer);
     }, [images.length, isActive]);
 
-    // 2. 專門監控何時「播完」並通知父組件
+    // 邏輯 2：當索引變成 -1 時，代表播完了，此時再通知父組件 (安全做法)
     useEffect(() => {
       if (currentIndex === -1) {
-        setCurrentIndex(0); // 重置為第一張
-        onComplete();       // ✅ 在這裡呼叫是安全的，不會觸發 React 報錯
+        setCurrentIndex(0);
+        onComplete(); 
       }
     }, [currentIndex, onComplete]);
 
     return (
-      <div className="relative w-full h-full">
-        <img 
-          // 這裡加上了 import.meta.env.BASE_URL 解決 GitHub Pages 的 404 問題
-          src={images[currentIndex]?.startsWith('http') 
-              ? images[currentIndex] 
-              : `${import.meta.env.BASE_URL}${images[currentIndex]?.replace(/^\//, '')}`}
-          alt={`${title} - ${currentIndex}`}
-          className="w-full h-full object-cover transition-opacity duration-500"
-        />
+      <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-xl">
+        {images.map((img, index) => {
+          const safeSrc = img 
+            ? (img.startsWith('http') ? img : `${import.meta.env.BASE_URL}${img.replace(/^\//, '')}`)
+            : '';
+
+          return (
+            <img
+              key={index}
+              src={safeSrc}
+              alt={`${title} - ${index}`}
+              className={`absolute transition-opacity duration-1000 ease-in-out max-w-full max-h-full object-contain ${
+                index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+            />
+          );
+        })}
       </div>
     );
   };
-  
+
   return (
     <section 
       id="Projects" 
@@ -304,7 +310,7 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
                 {project.type === 'video' ? (
                   <video
                     key={currentProjectIndex}
-                    src={project.image[0]}
+                    src={project.image[0] ? `${import.meta.env.BASE_URL}${project.image[0].replace(/^\//, '')}` : ''}
                     title={project.title}
                     ref={index === currentProjectIndex ? videoRef : null}
                     onClick={togglePlay}
