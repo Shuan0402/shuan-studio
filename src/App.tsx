@@ -3,10 +3,11 @@ import { useState, useRef, useEffect } from 'react';
 import Home from './components/Home';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import ChatAI from './components/ChatAI';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Home');
-  const tabs = ['Home', 'Experience', 'Projects'];
+  const tabs = ['Home', 'Experience', 'Projects', 'ChatAI'];
 
   // 1. 建立各個段落的 Ref
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -14,7 +15,7 @@ function App() {
     Home: useRef<HTMLElement>(null),
     Projects: useRef<HTMLElement>(null),
     Experience: useRef<HTMLElement>(null),
-    Contact: useRef<HTMLElement>(null),
+    ChatAI: useRef<HTMLElement>(null),
   };
 
   // 2. 點擊標籤捲動到對應位置
@@ -107,6 +108,7 @@ function App() {
             <Home ref={sectionRefs.Home} />
             <Experience ref={sectionRefs.Experience} />
             <Projects ref={sectionRefs.Projects} />
+            <ChatAI ref={sectionRefs.ChatAI} />
 
         </main>
       </div>
