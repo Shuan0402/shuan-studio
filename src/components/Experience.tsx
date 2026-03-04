@@ -89,17 +89,17 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
               activeCategory === group.category && (
                 <div 
                   key={group.category}
-                  className="animate-fadeIn max-h-[550px] overflow-y-auto pr-4 custom-scrollbar"
+                  className="animate-fadeIn max-h-[480px] overflow-y-auto pr-4 custom-scrollbar"
                   style={{
                     maskImage: 'linear-gradient(to bottom, transparent, black 30px, black calc(100% - 30px), transparent)',
                     WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30px, black calc(100% - 30px), transparent)'
                   }}
                 >
-                  <div className="grid gap-6 py-8">
+                  <div className="grid gap-4 py-2">
                     {group.items.map((item, idx) => (
                       <div 
                         key={idx} 
-                        className="group bg-white/60 border border-stone-100 px-8 py-6 rounded-2xl hover:shadow-sm transition-all"
+                        className="group bg-white/60 border border-stone-100 px-8 py-4 rounded-2xl hover:shadow-sm transition-all"
                       >
                         <div className="flex justify-between items-baseline mb-4">
                           <h4 className="text-stone-800 font-black text-lg group-hover:text-blue-600 transition-colors">
