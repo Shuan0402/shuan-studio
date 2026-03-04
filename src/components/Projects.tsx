@@ -157,6 +157,7 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const currentProject = projectsData[currentProjectIndex];
   const isMultiImageProject = currentProject.type !== 'video' && currentProject.image.length > 1;
+  const [volume, setVolume] = useState(1);
 
   // 1. 自動滾動邏輯
   useEffect(() => {
@@ -306,46 +307,77 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
               className="flex-shrink-0 w-full h-full flex"
             >
               {/* 左側：媒體區域 (影片或圖片) */}
-              <div className="w-5/8 h-full flex items-center justify-center p-12 relative overflow-hidden bg-stone-100/50">
+              <div className="w-5/8 h-full flex items-center justify-center p-12 relative group overflow-hidden bg-stone-100/50">
                 {project.type === 'video' ? (
-                  <video
-                    key={currentProjectIndex}
-                    src={project.image[0] ? `${import.meta.env.BASE_URL}${project.image[0].replace(/^\//, '')}` : ''}
-                    title={project.title}
-                    ref={index === currentProjectIndex ? videoRef : null}
-                    onClick={togglePlay}
-                    className="w-full aspect-video rounded-xl shadow-2xl z-20 cursor-pointer"
-                    onPlay={() => setisVideoPlaying(true)}
-                    onPause={() => setisVideoPlaying(false)}
-                    onEnded={() => {
-                      setisVideoPlaying(false);
-                      goToNextProject();
-                    }}
-                    autoPlay={isIntersecting && index === currentProjectIndex}
-                    // muted
-                  ></video>
+                  <div className="relative w-full aspect-video z-20">
+                    <video
+                      key={currentProjectIndex}
+                      src={project.image[0] ? `${import.meta.env.BASE_URL}${project.image[0].replace(/^\//, '')}` : ''}
+                      title={project.title}
+                      ref={(el) => {
+                        if (index === currentProjectIndex) {
+                          videoRef.current = el;
+                          if (el) el.volume = volume;
+                        }
+                      }}
+                      onClick={togglePlay}
+                      className="w-full h-full rounded-xl shadow-2xl cursor-pointer object-cover"
+                      onPlay={() => setisVideoPlaying(true)}
+                      onPause={() => setisVideoPlaying(false)}
+                      onEnded={() => {
+                        setisVideoPlaying(false);
+                        goToNextProject();
+                      }}
+                      autoPlay={isIntersecting && index === currentProjectIndex}
+                    ></video>
+
+                    {/* 音量滑軌控制項 */}
+                    <div className="absolute top-4 right-4 flex items-center gap-2 bg-black/40 backdrop-blur-md p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100">
+                      <div className="flex items-center group/volume overflow-hidden max-w-[40px] hover:max-w-[150px] transition-all duration-500 ease-in-out">
+                        <svg className="w-5 h-5 text-white ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                        
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.05"
+                          value={volume}
+                          onChange={(e) => {
+                            const newVolume = parseFloat(e.target.value);
+                            setVolume(newVolume);
+                            if (videoRef.current) videoRef.current.volume = newVolume;
+                          }}
+                          className="w-24 h-1 mx-3 bg-white/30 rounded-lg appearance-none cursor-pointer accent-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <ImageCarousel 
                     images={project.image} 
                     title={project.title} 
-                    isActive={index === currentProjectIndex} // 只有當前顯示的專案才跑輪播
-                    onComplete={goToNextProject} // 內部跑完後執行主組件的跳轉
+                    isActive={index === currentProjectIndex}
+                    onComplete={goToNextProject}
                   />
                 )}
               </div>
 
               {/* 右側：介紹區域 */}
-              <div className="w-1/2 h-full p-16 flex flex-col justify-center space-y-8 bg-white/40">
-                <div className="space-y-4">
-                  <h3 className="text-stone-800 text-4xl font-black tracking-tight leading-tight">
-                    {project.title}
-                  </h3>
-                  <h4 className="text-stone-800 text-2xl font-black tracking-tight leading-tight">
-                    {project.subtitle}
-                  </h4>
-                  <p className="text-stone-500 text-lg leading-relaxed font-medium">
-                    {project.description}
-                  </p>
+              <div className="w-1/2 h-full p-15 flex flex-col overflow-y-auto bg-white/40">
+                <div className="my-auto space-y-8">
+                  <div className="space-y-4">
+                    <h3 className="text-stone-800 text-4xl font-black tracking-tight leading-tight">
+                      {project.title}
+                    </h3>
+                    <h4 className="text-stone-800 text-2xl font-black tracking-tight leading-tight">
+                      {project.subtitle}
+                    </h4>
+                    <p className="text-stone-500 text-lg leading-relaxed font-medium">
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
                 
                 <div className="space-y-6">

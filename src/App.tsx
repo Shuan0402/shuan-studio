@@ -6,7 +6,7 @@ import Projects from './components/Projects';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Home');
-  const tabs = ['Home', 'Experience', 'Projects', 'Contact'];
+  const tabs = ['Home', 'Experience', 'Projects'];
 
   // 1. 建立各個段落的 Ref
   const scrollContainerRef = useRef<HTMLDivElement>(null);
