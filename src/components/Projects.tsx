@@ -1,5 +1,5 @@
 // Projects.tsx
-import { forwardRef, useState, useEffect, useCallback, useRef } from 'react';
+import React, { forwardRef, useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
 interface ProjectItem {
@@ -30,7 +30,7 @@ const projectsData: ProjectItem[] = [
     ],
     tags: ['IEA/AIE 2025', '國科會大專生計畫', '專題競賽佳作', '勒索病毒偵測', '深度學習', '自然語言處理', '多人協作'],
     liveLink: 'https://link.springer.com/chapter/10.1007/978-981-96-8892-0_10',
-    githubLink: 'https://github.com/Shuan0402/RANsomCheck'
+    githubLink: 'https://github.com/Shuan0402/RANsomCheck-Backend'
   },
   {
     type: 'image',
@@ -147,7 +147,7 @@ const projectsData: ProjectItem[] = [
   },
 ];
 
-const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
+const Projects = forwardRef<HTMLElement, {}>((_: any, ref: any) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -164,7 +164,7 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
     if (isVideoPlaying || isMultiImageProject) return;
 
     const autoScrollInterval = setInterval(() => {
-      setCurrentProjectIndex((prevIndex) => 
+      setCurrentProjectIndex((prevIndex: number) => 
         (prevIndex + 1) % projectsData.length
       );
     }, 5000);
@@ -176,7 +176,7 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
   const handleManualAction = useCallback((index: number) => {
     setCurrentProjectIndex(index);
     setisVideoPlaying(false);
-    setResetKey(prev => prev + 1);
+    setResetKey((prev: number) => prev + 1);
   }, []);
 
   const goToNextProject = useCallback(() => {
@@ -217,16 +217,21 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
     return () => observer.disconnect();
   }, []);
 
-  const ImageCarousel = ({ 
-    images, 
-    title, 
-    isActive, 
-    onComplete 
-  }: { 
+  const ImageCarousel: React.FC<{ 
     images: string[]; 
     title: string; 
     isActive: boolean; 
     onComplete: () => void 
+  }> = ({ 
+    images,
+    title,
+    isActive,
+    onComplete
+  }: {
+    images: string[];
+    title: string;
+    isActive: boolean;
+    onComplete: () => void;
   }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -238,7 +243,7 @@ const Projects = forwardRef<HTMLElement, {}>((_, ref) => {
       }
 
       const timer = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
+        setCurrentIndex((prevIndex: number) => {
           return prevIndex === images.length - 1 ? -1 : prevIndex + 1;
         });
       }, 2000); 
