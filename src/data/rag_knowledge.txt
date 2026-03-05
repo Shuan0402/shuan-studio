@@ -1,0 +1,8 @@
+{"id": "exp_qnap", "category": "experience", "content": "於威聯通科技 (QNAP) 擔任自動化測試實習生 (2025.01-2025.06)。負責開發 APP LAB 流程導入 Trivy 資安掃描，實現自動化偵測漏洞與敏感資訊 [cite: 32, 44]。此外實作 QVR Pro Client 批次更新自動化，將手動流程轉為並行處理，提升運作效率並降低失誤 [cite: 363, 366]。實習期間共處理 103 項任務，包含環境建置、Bug 修復與跨產品 (QVR Human, Qumagie) 的自動化測試開發 [cite: 21, 24, 701, 712]。"}
+{"id": "prj_selfmap", "category": "project", "content": "開發 SelfMap 個人化地圖管理平台，協助使用者記錄私房景點與撰寫遊記 [cite: 725, 726]。技術棧採用 React 18、MUI 與 Firebase (Authentication/Firestore)。具備即時資料同步 (onSnapshot)、地圖協作共享連結、以及圖片壓縮上傳功能。專案開發過程中深度結合 ChatGPT 5.1 進行 Vibe Coding 輔助 [cite: 898]。"}
+{"id": "exp_nthu_ta", "category": "experience", "content": "擔任清華大學資訊工程學系「軟體工程」課程助教 (2026.02-NOW)。職責包含設計並批改作業、進行課程講解、處理行政庶務及提供學生實體技術諮詢。透過改作業過程接觸多元開發觀點，並與助教團隊進行大規模任務分工。"}
+{"id": "exp_cyber_girl", "category": "experience", "content": "於 2025 年 11 月擔任「資安女婕思」教育科技展工讀生。在展場攤位負責行政庶務、引導會眾參與資安遊戲，並以過往參賽學員身份進行經驗分享，致力於推廣資安教育。"}
+{"id": "exp_ntut_cnc", "category": "experience", "content": "任職於台北科技大學計網中心 (2023.01-2025.01)。負責全校電腦教室維護、系統重灌與還原派送、師生帳號與授權軟體諮詢，並協助解決網路與投影設備等第一線技術障礙。"}
+{"id": "exp_hitcon", "category": "experience", "content": "於 2022 年擔任奧義智慧科技 (CyCraft) 在 HITCON 期間的工讀生。主要職責為資安桌遊推廣，將複雜的資安防護邏輯透過遊戲方式解說給會眾，提升社群互動與資安科普效果。"}
+{"id": "exp_tutor", "category": "experience", "content": "於明光義塾擔任數理科輔導講師 (2022.07-2023.01)。負責一對一課程規劃、重點講解與錯題分析。曾主動為學習效率較慢的學生撰寫客製化詳解，成功協助學生學業成績從 40 分段進步至 60 分以上。"}
+{"id": "skill_summary", "category": "skills", "content": "具備軟體開發與資訊安全雙重背景。熟練掌握 React、Vite、Firebase、MUI 等前端開發技術 [cite: 894, 897]，並有 Jenkins CI/CD 流程導入與自動化測試 (Airtest, Xpath) 的實戰經驗。曾參與多次資安競賽與推廣活動，對於 RAG 應用與 LLM 整合開發有濃厚興趣。"}
