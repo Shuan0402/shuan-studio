@@ -5,15 +5,20 @@ const ChatAI = forwardRef<HTMLElement, {}>((_, ref) => {
     <section 
       id="Ask" 
       ref={ref} 
-      className="w-full px-10 flex flex-col items-center py-10 overflow-hidden"
+      // 1. 確保 Section 佔滿父層 100% 高度
+      className="w-full h-full px-10 flex flex-col items-center py-10 overflow-hidden"
     >
+      {/* 標題區保持 flex-none，這很正確 */}
       <div className="w-full max-w-7xl mb-12 flex-none text-left">
         <h2 className="text-stone-400 text-xs tracking-[0.5em] uppercase font-black">
           CHAT AI
         </h2>
       </div>
 
-      <div className="relative w-full max-w-7xl flex-none h-[550px] rounded-[32px] overflow-hidden bg-white/70 backdrop-blur-sm border border-stone-200 shadow-sm flex flex-col">
+      {/* 2. 修改主容器：去掉 h-[550px]，改用 flex-1 讓它自動填滿剩餘空間 */}
+      <div className="relative w-full max-w-7xl flex-1 rounded-[32px] overflow-hidden bg-white/70 backdrop-blur-sm border border-stone-200 shadow-sm flex flex-col min-h-0">
+        
+        {/* 中間內容區：這部分已經是 flex-1，會自動隨著父容器拉長 */}
         <div className="flex-1 p-12 flex flex-col items-center justify-center text-center">
           <div className="max-w-md space-y-6">
             <div className="w-20 h-20 bg-stone-50 rounded-[2.5rem] flex items-center justify-center mx-auto mb-6 border border-stone-100 shadow-inner">

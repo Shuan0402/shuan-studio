@@ -26,7 +26,7 @@ const Home = forwardRef<HTMLElement, {}>((_, ref) => {
                     
                     <div className="mt-8 text-center">
                         <h1 className="text-3xl font-black text-stone-800 tracking-tight">
-                            何穎宣 <span className="text-stone-400 font-light text-2xl ml-2">(Ho Ying-Xuan)</span>
+                            何穎宣 <span className="text-stone-400 font-light text-2xl ml-2">(Ho Ying-Hsuan)</span>
                         </h1>
                     </div>
                 </div>

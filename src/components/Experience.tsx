@@ -51,7 +51,8 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
     <section 
       id="Experience" 
       ref={ref} 
-      className="w-full py-10 px-10 flex flex-col items-center" 
+      // 1. 加入 h-full，這是一切高度計算的基礎
+      className="w-full h-full py-10 px-10 flex flex-col items-center overflow-hidden" 
     >
       {/* 標題區 */}
       <div className="w-full max-w-7xl mb-12 flex-none">
@@ -61,12 +62,14 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
       </div>
 
       {/* 內容大框框 */}
-      <div className="w-full max-w-7xl bg-white/70 backdrop-blur-sm border border-stone-200 rounded-[32px] p-8 md:p-12 shadow-sm h-[550px] flex flex-col">
-        <div className="flex flex-col md:flex-row gap-0">
+      <div className="w-full max-w-7xl bg-white/70 backdrop-blur-sm border border-stone-200 rounded-[32px] p-8 md:p-12 shadow-sm flex-1 flex flex-col min-h-0">
+        
+        {/* 2. 關鍵修正層：必須加上 flex-1 與 min-h-0，高度才能往下傳遞給滾動區域 */}
+        <div className="flex flex-col md:flex-row gap-0 flex-1 min-h-0">
           
           {/* 左側：固定導航 */}
-          <div className="md:w-56 flex-none relative border-r border-stone-200 pr-8">
-            <div className="sticky top-10 space-y-4">
+          <div className="md:w-56 flex-none relative border-r border-stone-200 pr-8 overflow-y-auto">
+            <div className="space-y-4">
               {experienceData.map((group) => (
                 <button
                   key={group.category}
@@ -84,12 +87,13 @@ const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
           </div>
 
           {/* 右側：項目列表 */}
-          <div className="flex-1 md:pl-12 mt-8 md:mt-0 flex flex-col">
+          <div className="flex-1 md:pl-12 mt-8 md:mt-0 relative min-h-0">
             {experienceData.map((group) => (
               activeCategory === group.category && (
                 <div 
                   key={group.category}
-                  className="animate-fadeIn max-h-[480px] overflow-y-auto pr-4 custom-scrollbar"
+                  // 3. 確保這裡有 flex-1，並移除不必要的 max-h
+                  className="animate-fadeIn h-full overflow-y-auto pr-4 custom-scrollbar"
                   style={{
                     maskImage: 'linear-gradient(to bottom, transparent, black 30px, black calc(100% - 30px), transparent)',
                     WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30px, black calc(100% - 30px), transparent)'
