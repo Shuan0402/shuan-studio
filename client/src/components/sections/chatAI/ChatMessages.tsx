@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown'; // 引入 Markdown 渲染組件
 import type { Message } from './hooks/useChat';
 
 interface ChatMessagesProps {
@@ -47,12 +48,19 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ messages, isLoading }) => {
             key={i} 
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}
           >
-            <div className={`max-w-[85%] md:max-w-[80%] px-4 md:px-6 py-3 md:py-4 rounded-[20px] md:rounded-[24px] text-xs md:text-sm leading-relaxed shadow-sm ${
-              msg.role === 'user' 
-              ? 'bg-stone-800 text-white rounded-tr-none' 
-              : 'bg-white text-stone-700 border border-stone-100 rounded-tl-none'
-            }`}>
-              {msg.content}
+            <div className={`max-w-[85%] md:max-w-[80%] px-4 md:px-6 py-3 md:py-4 rounded-[20px] md:rounded-[24px] text-xs md:text-sm leading-relaxed shadow-sm 
+                break-words whitespace-pre-wrap 
+                ${
+                    msg.role === 'user' 
+                    ? 'bg-stone-800 text-white rounded-tr-none' 
+                    : 'bg-white text-stone-700 border border-stone-100 rounded-tl-none'
+                }`}
+                >
+                <div className={`prose prose-sm max-w-none ${msg.role === 'user' ? 'prose-invert text-white' : 'text-stone-700'}`}>
+                    <ReactMarkdown>
+                    {msg.content}
+                    </ReactMarkdown>
+                </div>
             </div>
           </div>
         ))}
