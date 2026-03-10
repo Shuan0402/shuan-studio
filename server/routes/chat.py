@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from services.pinecone_service import ai_service
 
 router = APIRouter()
 
@@ -8,5 +9,5 @@ class ChatRequest(BaseModel):
 
 @router.post("/chat")
 async def chat_with_shuan(request: ChatRequest):
-    # 先寫簡單的回覆測試
-    return {"content": "Hello from modular router!"}
+    content = ai_service.get_ai_response(request.message)
+    return {"content": content}

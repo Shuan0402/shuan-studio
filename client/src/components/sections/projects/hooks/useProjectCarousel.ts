@@ -17,18 +17,30 @@ export const useProjectCarousel = (projectsData: ProjectItem[]) => {
 
   // 自動輪播計時器
   useEffect(() => {
-    if (isVideoPlaying || isMultiImageProject) return;
+    const timer = setTimeout(() => {
+      if (currentProject.type === 'video' && isIntersecting) {
+        videoRef.current?.play().catch(() => {
+          console.log("Autoplay blocked, waiting for interaction");
+        });
+      }
+    }, 100);
 
-    const autoScrollInterval = setInterval(() => {
-      setCurrentProjectIndex((prev) => (prev + 1) % projectsData.length);
-    }, 5000);
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        setIsVideoPlaying(false);
+      }
+    };
+  }, [currentProjectIndex, isIntersecting, currentProject.type]);
 
-    return () => clearInterval(autoScrollInterval);
-  }, [resetKey, isVideoPlaying, isMultiImageProject, projectsData.length]);
-
-  // 手動操作邏輯
+  // 【手動操作
   const handleManualAction = useCallback((index: number) => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    
     setCurrentProjectIndex(index);
+    
     setIsVideoPlaying(false);
     setResetKey((prev) => prev + 1);
   }, []);

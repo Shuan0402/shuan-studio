@@ -1,9 +1,9 @@
 import { useScrollSpy } from './hooks/useScrollSpy';
 import { Navbar } from './components/layout/Navbar';
-import Home from './components/Home';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import ChatAI from './components/ChatAI';
+import Home from './components/sections/home/index';
+import Experience from './components/sections/experience/index';
+import Projects from './components/sections/projects/index';
+import ChatAI from './components/sections/chatAI/index';
 
 const TABS = ['Home', 'Experience', 'Projects', 'ChatAI'];
 
