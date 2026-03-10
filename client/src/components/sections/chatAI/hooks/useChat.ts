@@ -14,6 +14,15 @@ export const useChat = () => {
   const handleSend = useCallback(async () => {
     if (!input.trim() || isLoading) return;
 
+    const easterEggPattern = /never gonna give you up|rick roll|瑞克搖/i;
+
+    if (easterEggPattern.test(input.trim())) {
+        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+        
+        setInput('');
+        return;
+    }
+
     const userMsg = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
