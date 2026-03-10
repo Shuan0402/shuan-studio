@@ -11,8 +11,11 @@ function App() {
   const { activeTab, scrollContainerRef, sectionRefs, scrollToSection } = useScrollSpy(TABS);
 
   return (
-    <div className="h-screen w-screen bg-stone-200 flex items-center justify-center p-4 overflow-hidden">
-      <div className="w-full max-w-[1440px] h-[95vh] bg-stone-100 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
+    // 修改處：手機版佔滿全螢幕 (p-0)，電腦版才顯示背景邊距 (md:p-4)
+    <div className="h-screen w-screen bg-stone-200 flex items-center justify-center md:p-4 overflow-hidden">
+      
+      {/* 修改處：手機版拿掉圓角 (rounded-none)，電腦版保留圓角 (md:rounded-3xl) */}
+      <div className="w-full max-w-[1440px] h-full md:h-[95vh] bg-stone-100 md:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
         
         <Navbar tabs={TABS} activeTab={activeTab} onTabClick={scrollToSection} />
 
