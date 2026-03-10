@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ImageCarousel from './ImageCarousel';
 import type { ProjectItem } from '../../../data/projects';
 

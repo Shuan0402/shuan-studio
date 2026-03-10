@@ -8,14 +8,23 @@ from pathlib import Path
 from routes.chat import router as chat_router
 
 env_path = Path(__file__).parent / ".env"
-load_dotenv(dotenv_path=env_path)
+if os.path.exists(env_path):
+    load_dotenv(dotenv_path=env_path)
 
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"status": "Shuan Studio API is running"}
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://shuan0402.github.io/shuan-studio",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )

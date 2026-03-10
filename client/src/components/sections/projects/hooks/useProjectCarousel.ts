@@ -4,7 +4,7 @@ import type { ProjectItem } from '../../../../data/projects';
 export const useProjectCarousel = (projectsData: ProjectItem[]) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const [resetKey, setResetKey] = useState(0);
+  const [resetKey, setResetKey] = useState(0); 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -13,19 +13,23 @@ export const useProjectCarousel = (projectsData: ProjectItem[]) => {
   const projectContainerRef = useRef<HTMLDivElement>(null);
 
   const currentProject = projectsData[currentProjectIndex];
-  const isMultiImageProject = currentProject.type !== 'video' && currentProject.image.length > 1;
 
-  // 自動輪播計時器
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentProject.type === 'video' && isIntersecting) {
-        videoRef.current?.play().catch(() => {
-          console.log("Autoplay blocked, waiting for interaction");
-        });
+    const playVideo = async () => {
+      if (currentProject.type === 'video' && isIntersecting && videoRef.current) {
+        try {
+          await videoRef.current.play();
+          setIsVideoPlaying(true);
+        } catch (err) {
+          console.warn("Autoplay blocked or video error:", err);
+        }
       }
-    }, 100);
+    };
+
+    const timeoutId = setTimeout(playVideo, 150);
 
     return () => {
+      clearTimeout(timeoutId);
       if (videoRef.current) {
         videoRef.current.pause();
         setIsVideoPlaying(false);
@@ -33,14 +37,21 @@ export const useProjectCarousel = (projectsData: ProjectItem[]) => {
     };
   }, [currentProjectIndex, isIntersecting, currentProject.type]);
 
-  // 【手動操作
+  useEffect(() => {
+    if (isVideoPlaying || isHovering) return;
+
+    const autoScrollTimer = setInterval(() => {
+      setCurrentProjectIndex((prev) => (prev + 1) % projectsData.length);
+    }, 5000);
+
+    return () => clearInterval(autoScrollTimer);
+  }, [isVideoPlaying, isHovering, projectsData.length, resetKey]);
+
   const handleManualAction = useCallback((index: number) => {
     if (videoRef.current) {
       videoRef.current.pause();
     }
-    
     setCurrentProjectIndex(index);
-    
     setIsVideoPlaying(false);
     setResetKey((prev) => prev + 1);
   }, []);
@@ -56,17 +67,26 @@ export const useProjectCarousel = (projectsData: ProjectItem[]) => {
   const togglePlay = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     if (videoRef.current) {
-      videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause();
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsVideoPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsVideoPlaying(false);
+      }
     }
   }, []);
 
-  // 視窗偵測邏輯
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsIntersecting(entry.isIntersecting),
       { threshold: 0.5 }
     );
-    if (projectContainerRef.current) observer.observe(projectContainerRef.current);
+
+    if (projectContainerRef.current) {
+      observer.observe(projectContainerRef.current);
+    }
+
     return () => observer.disconnect();
   }, []);
 
@@ -78,7 +98,8 @@ export const useProjectCarousel = (projectsData: ProjectItem[]) => {
       isVideoPlaying,
       isIntersecting,
       videoRef,
-      projectContainerRef
+      projectContainerRef,
+      resetKey
     },
     actions: {
       setIsHovering,

@@ -1,14 +1,20 @@
-// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path' // 建議引入 path
 
+// https://vitejs.dev/config/
 export default defineConfig({
+  base: '/shuan-studio/',
+
   plugins: [react()],
-  base: '/', // 改回根目錄
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'), // 順手建立別名，之後重構代碼會乾淨很多
-    },
+
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    assetsInlineLimit: 0,
   },
+
+  server: {
+    port: 5173,
+    strictPort: true,
+  }
 })
