@@ -12,7 +12,6 @@ interface ContactIconsProps {
   };
 }
 
-// 內部複用組件：處理 Tooltip 樣式
 const ContactLink = ({ href, icon, tooltip, colorClass = "hover:text-blue-600" }: { 
   href: string; 
   icon: any; 
@@ -28,10 +27,8 @@ const ContactLink = ({ href, icon, tooltip, colorClass = "hover:text-blue-600" }
     >
       <FontAwesomeIcon icon={icon} />
     </a>
-    {/* Tooltip */}
     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 group-hover/item:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-stone-800 text-white text-[11px] py-1.5 px-3 rounded shadow-xl translate-y-2 group-hover/item:translate-y-0">
       {tooltip}
-      {/* 小箭頭 */}
       <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-stone-800"></div>
     </div>
   </div>
