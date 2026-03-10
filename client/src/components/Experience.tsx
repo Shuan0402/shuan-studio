@@ -1,6 +1,10 @@
 import { forwardRef, useState } from 'react';
 
-const Experience = forwardRef<HTMLElement, {}>((_, ref) => {
+interface SectionProps {
+  id: string;
+}
+
+const Experience = forwardRef<HTMLElement, SectionProps>((props, ref) => {
   const [activeCategory, setActiveCategory] = useState("工作經驗");
 
   const experienceData = [

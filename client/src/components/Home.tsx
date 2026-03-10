@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
-const Home = forwardRef<HTMLElement, {}>((_, ref) => {
+interface SectionProps {
+  id: string;
+}
+
+const Home = forwardRef<HTMLElement | null, SectionProps>((props, ref) => {
   return (
         <section 
-            id="Home" 
+            id={props.id} 
             ref={ref} 
             className="min-h-full w-full flex items-center justify-center relative px-10"
         >

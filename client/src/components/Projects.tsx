@@ -14,6 +14,10 @@ interface ProjectItem {
   githubLink?: string;
 }
 
+interface SectionProps {
+  id: string;
+}
+
 const projectsData: ProjectItem[] = [
   {
     type: 'image',
@@ -147,7 +151,7 @@ const projectsData: ProjectItem[] = [
   },
 ];
 
-const Projects = forwardRef<HTMLElement, {}>((_: any, ref: any) => {
+const Projects = forwardRef<HTMLElement, SectionProps>((props, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);

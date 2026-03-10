@@ -1,9 +1,13 @@
 import { forwardRef } from 'react';
 
-const ChatAI = forwardRef<HTMLElement, {}>((_, ref) => {
+interface SectionProps {
+  id: string;
+}
+
+const ChatAI = forwardRef<HTMLElement, SectionProps>((props, ref) => {
   return (
     <section 
-      id="Ask" 
+      id={props.id} 
       ref={ref} 
       // 1. 確保 Section 佔滿父層 100% 高度
       className="w-full h-full px-10 flex flex-col items-center py-10 overflow-hidden"
