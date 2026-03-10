@@ -4,6 +4,7 @@ import { projectsData } from '../../../data/projects';
 import ProjectMedia from './ProjectMedia';
 import ProjectInfo from './ProjectInfo';
 import { useProjectCarousel } from './hooks/useProjectCarousel';
+import { useSwipe } from './hooks/useSwipe'; // 引入新 Hook
 
 interface SectionProps {
   id: string;
@@ -11,6 +12,12 @@ interface SectionProps {
 
 const Projects = forwardRef<HTMLElement, SectionProps>((props, ref) => {
   const { state, actions } = useProjectCarousel(projectsData);
+
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: actions.goToNext,
+    onSwipeRight: actions.goToPrev,
+    threshold: 50
+  });
 
   return (
     <section 
@@ -30,6 +37,7 @@ const Projects = forwardRef<HTMLElement, SectionProps>((props, ref) => {
       {/* 輪播主容器 */}
       <div 
         ref={state.projectContainerRef}
+        {...swipeHandlers}
         className="relative w-full max-w-7xl h-auto md:h-full rounded-[24px] md:rounded-[32px] overflow-hidden bg-white/70 backdrop-blur-sm border border-stone-200 shadow-sm"
       >
         <div 
@@ -62,25 +70,24 @@ const Projects = forwardRef<HTMLElement, SectionProps>((props, ref) => {
 
         {/* 導航按鈕：左 */}
         <button
-        onClick={actions.goToPrev}
-        className={`absolute left-2 md:left-4 top-[150px] md:top-1/2 -translate-y-1/2 
+          onClick={actions.goToPrev}
+          className={`absolute left-2 md:left-4 top-[150px] md:top-1/2 -translate-y-1/2 
             bg-white/60 md:bg-white/20 hover:bg-white/40 backdrop-blur-md text-stone-800 
-            p-3 md:p-4 rounded-full transition-all duration-500 z-30 shadow-lg border border-white/50 \
+            p-3 md:p-4 rounded-full transition-all duration-500 z-30 shadow-lg border border-white/50 
             ${state.isHovering ? 'opacity-100' : 'opacity-100 md:opacity-0'}`}
         >
-        <ChevronLeftIcon className="h-6 w-6" />
+          <ChevronLeftIcon className="h-6 w-6" />
         </button>
 
         {/* 導航按鈕：右 */}
         <button
-        onClick={actions.goToNext}
-        className={`absolute right-2 md:right-4 top-[150px] md:top-1/2 -translate-y-1/2 
+          onClick={actions.goToNext}
+          className={`absolute right-2 md:right-4 top-[150px] md:top-1/2 -translate-y-1/2 
             bg-white/60 md:bg-white/20 hover:bg-white/40 backdrop-blur-md text-stone-800 
             p-3 md:p-4 rounded-full transition-all duration-500 z-30 shadow-lg border border-white/50 
-            /* 核心修改在這裡： */
             ${state.isHovering ? 'opacity-100' : 'opacity-100 md:opacity-0'}`}
         >
-        <ChevronRightIcon className="h-6 w-6" />
+          <ChevronRightIcon className="h-6 w-6" />
         </button>
 
         {/* 底部分頁指示器 */}
