@@ -13,13 +13,11 @@ const Home = forwardRef<HTMLElement | null, SectionProps>((props, ref) => {
     <section 
       id={props.id} 
       ref={ref} 
-      /* RWD 修改：手機版增加 py-20 以免內容太擠，px 改為 6 */
       className="min-h-full w-full flex items-center justify-center relative px-6 md:px-10 py-16 md:py-0"
     >
-      {/* RWD 修改：手機版 flex-col 垂直排列，電腦版 flex-row 水平排列 */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-10 lg:gap-20 w-full max-w-7xl">
         
-        {/* 左側：個人卡片 - 手機版會自動置中 */}
+        {/* 左側：個人卡片 */}
         <div className="w-full md:w-auto flex justify-center">
           <ProfileCard 
             name={profileData.name} 
@@ -28,15 +26,13 @@ const Home = forwardRef<HTMLElement | null, SectionProps>((props, ref) => {
           />
         </div>
 
-        {/* 右側：詳細文字介紹區 - 手機版文字置中 */}
+        {/* 右側：詳細文字介紹區 */}
         <div className="flex-1 space-y-6 text-center md:text-left">
           <div className="space-y-4">
-            {/* RWD 修改：手機版 3xl，電腦版 5xl */}
             <h2 className="text-stone-800 text-3xl md:text-5xl font-black tracking-tighter">
               About Me
             </h2>
             
-            {/* RWD 修改：手機版 xl，電腦版 2xl */}
             <p className="text-blue-600 text-xl md:text-2xl font-extrabold tracking-tight leading-snug">
               {profileData.title}
             </p>
@@ -58,12 +54,12 @@ const Home = forwardRef<HTMLElement | null, SectionProps>((props, ref) => {
             </div>
           </div>
 
-          {/* 聯絡資訊圖標 - 容器置中處理 */}
+          {/* 聯絡資訊圖標 */}
           <div className="flex justify-center md:justify-start">
             <ContactIcons contact={profileData.contact} />
           </div>
           
-          {/* 技能標籤區 - 容器置中處理 */}
+          {/* 技能標籤區 */}
           <div className="flex justify-center md:justify-start">
             <SkillTags skills={profileData.skills} />
           </div>
