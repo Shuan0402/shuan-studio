@@ -13,40 +13,60 @@ const Home = forwardRef<HTMLElement | null, SectionProps>((props, ref) => {
     <section 
       id={props.id} 
       ref={ref} 
-      className="min-h-full w-full flex items-center justify-center relative px-10"
+      /* RWD 修改：手機版增加 py-20 以免內容太擠，px 改為 6 */
+      className="min-h-full w-full flex items-center justify-center relative px-6 md:px-10 py-16 md:py-0"
     >
-      <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20 w-full max-w-7xl">
+      {/* RWD 修改：手機版 flex-col 垂直排列，電腦版 flex-row 水平排列 */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-10 lg:gap-20 w-full max-w-7xl">
         
-        {/* 左側：個人卡片 */}
-        <ProfileCard 
-          name={profileData.name} 
-          nameEn={profileData.nameEn} 
-          imagePath="Shuan.jpg" 
-        />
+        {/* 左側：個人卡片 - 手機版會自動置中 */}
+        <div className="w-full md:w-auto flex justify-center">
+          <ProfileCard 
+            name={profileData.name} 
+            nameEn={profileData.nameEn} 
+            imagePath="Shuan.jpg" 
+          />
+        </div>
 
-        {/* 右側：詳細文字介紹區 */}
-        <div className="flex-1 space-y-6 text-left">
+        {/* 右側：詳細文字介紹區 - 手機版文字置中 */}
+        <div className="flex-1 space-y-6 text-center md:text-left">
           <div className="space-y-4">
-            <h2 className="text-stone-800 text-5xl font-black tracking-tighter">About Me</h2>
-            <p className="text-blue-600 text-2xl font-extrabold tracking-tight">
+            {/* RWD 修改：手機版 3xl，電腦版 5xl */}
+            <h2 className="text-stone-800 text-3xl md:text-5xl font-black tracking-tighter">
+              About Me
+            </h2>
+            
+            {/* RWD 修改：手機版 xl，電腦版 2xl */}
+            <p className="text-blue-600 text-xl md:text-2xl font-extrabold tracking-tight leading-snug">
               {profileData.title}
             </p>
             
-            <div className="max-w-2xl text-stone-500 leading-relaxed font-medium text-lg space-y-1">
+            <div className="max-w-2xl mx-auto md:mx-0 text-stone-500 leading-relaxed font-medium text-base md:text-lg space-y-2">
               {profileData.education.map((edu, i) => (
-                <p key={i}>
-                  {edu.status} <span className="text-stone-900 font-bold">{edu.school} {edu.department}</span>
+                <p key={i} className="flex flex-col sm:block">
+                  <span className="text-stone-400 text-xs md:text-sm uppercase tracking-widest block md:inline md:mr-2">
+                    {edu.status}
+                  </span>
+                  <span className="text-stone-900 font-bold block md:inline">
+                    {edu.school} {edu.department}
+                  </span>
                 </p>
               ))}
-              <p className="pt-2">{profileData.bio}</p>
+              <p className="pt-2 text-stone-600">
+                {profileData.bio}
+              </p>
             </div>
           </div>
 
-          {/* 聯絡資訊圖標 */}
-          <ContactIcons contact={profileData.contact} />
+          {/* 聯絡資訊圖標 - 容器置中處理 */}
+          <div className="flex justify-center md:justify-start">
+            <ContactIcons contact={profileData.contact} />
+          </div>
           
-          {/* 技能標籤區 */}
-          <SkillTags skills={profileData.skills} />
+          {/* 技能標籤區 - 容器置中處理 */}
+          <div className="flex justify-center md:justify-start">
+            <SkillTags skills={profileData.skills} />
+          </div>
         </div>
       </div>
     </section>
