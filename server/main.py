@@ -21,10 +21,11 @@ def read_root():
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://shuan0402.github.io/shuan-studio",
+        "https://shuan0402.github.io",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
